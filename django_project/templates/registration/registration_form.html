@@ -1,0 +1,64 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Register for an account" %}{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.5/examples/floating-labels/floating-labels.css">
+{% endblock %}
+{% block content %}
+
+    <form class="form-signin" method="post" action="">
+        <h1>Регистрация</h1>
+        {% csrf_token %}
+
+        <div class="form-label-group">
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email" name="email" required
+                   autofocus>
+            <label for="inputEmail">Email</label>
+        </div>
+
+        <div class="form-label-group">
+            <input name="password1" type="password" id="inputPassword1" class="form-control" placeholder="Пароль"
+                   required>
+            <label for="inputPassword1">Пароль</label>
+        </div>
+
+        <div class="form-label-group">
+            <input name="password2" type="password" id="inputPassword2" class="form-control" placeholder="Пароль"
+                   required>
+            <label for="inputPassword2">Подтверждение пароля</label>
+        </div>
+
+        <div class="form-label-group">
+            <input name="first_name" type="text" id="inputFirst_name" class="form-control"
+                   placeholder="Имя пользователя" required>
+            <label for="inputFirst_name">Имя пользователя</label>
+        </div>
+
+        <div class="form-label-group">
+            <input name="last_name" type="text" id="inputLast_name" class="form-control" placeholder="Имя пользователя"
+                   required>
+            <label for="inputLast_name">Фамилия пользователя</label>
+        </div>
+
+        <div class="form-label-group">
+            <input name="patronymic_name" type="text" id="inputPatronymic_name" class="form-control"
+                   placeholder="Отчество пользователя" required>
+            <label for="inputPatronymic_name">Отчество пользователя</label>
+        </div>
+
+        <div class="form-label-group">
+            <input name="address" type="text" id="inputAddress" class="form-control" placeholder="Адрес пользователя"
+                   required>
+            <label for="inputAddress">Адрес пользователя</label>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="submit" value="{% trans 'Submit' %}"/>
+            </div>
+            <div class="col text-right">
+                <a href="{% url "home" %}">Домой</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}

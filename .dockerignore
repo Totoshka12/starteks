@@ -1,0 +1,14 @@
+.directory
+.git
+.env
+env
+media
+node_modules
+tmp
+static
+log
+db
+backup
+frontend/node_modules
+Dockerfile
+docker

@@ -1,0 +1,45 @@
+{% extends "client.html" %}
+{% block left_list %}
+    <ul>
+    {% for client in clients %}
+        <li>{{ client }}
+        <ul class="nav nav-pills">
+            {% for cart in client.cart_set.all %}
+                <li class="nav-item">
+                    <a class="nav-link{% if cart.pk == pk %} active{% endif %}" href="{% url "order-detail" cart.pk%}">{{ cart.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+{% block full_page %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ПРОДУКТ</th>
+            <th scope="col">КОЛИЧНСТВО</th>
+            <th scope="col">ЦЕНА ЗА ШТУКУ</th>
+            <th scope="col">ИТОГО</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td><a href="{% url "product-detail" item.product.sku %}">{{ item.product.title }}</a></td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.unit_price }}</td>
+                <td>{{ item.total_price }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="3" class="text-right">ИТОГО</th>
+            <th><span id="summary">{{ total }}</span> руб.</th>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
+{% block pagination %}
+    {% include "_pagination.html" %}
+{% endblock %}

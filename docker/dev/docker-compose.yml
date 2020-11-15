@@ -1,0 +1,50 @@
+version: '2'
+services:
+  django_basic:
+    build: ../../
+    image: starteks/django
+    environment:
+      - DJANGO_SETTINGS_MODULE=starteks.settings
+    volumes:
+      - ../../:/django_project
+      - ../../static:/static
+      - ../../media:/media
+
+  django:
+    extends:
+      service: django_basic
+    command: python manage.py runserver 0.0.0.0:8002
+    ports:
+      - "80:8002"
+    environment:
+      - VIRTUAL_HOST=django
+    depends_on:
+      - postgres
+
+  redis:
+    image: redis:latest
+
+  celery:
+    extends:
+      service: django_basic
+    command: "celery -A starteks worker -B -l info -E"
+    expose:
+      - "8001"
+    volumes:
+      - ../../log:/tmp/log
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:9.6.10
+    volumes:
+      - postgres_starteks:/var/lib/postgresql/data
+      - ../../backup:/mnt/backup
+    environment:
+      POSTGRES_USER: starteks
+      POSTGRES_PASSWORD: starteks
+      POSTGRES_DB: starteks
+volumes:
+    postgres_starteks:
+        external: true

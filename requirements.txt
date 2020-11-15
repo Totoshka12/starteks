@@ -1,0 +1,18 @@
+django
+psycopg2
+#django-filter
+#djangorestframework
+#django-rest-auth
+django-pure-pagination
+django-registration-redux
+django-money
+easy-thumbnails
+celery
+redis
+django-wkhtmltopdf
+#uwsgi
+
+# Для разработки
+django-debug-toolbar
+django-extensions
+ipython
